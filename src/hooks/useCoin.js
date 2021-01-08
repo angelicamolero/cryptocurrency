@@ -1,14 +1,17 @@
 import React, { Fragment, useState } from 'react';
 
-const useCoin = () => {
+const useCoin = (label, initialState, options) => {
 
-    const  [ state, updateState ] = useState('');
+    const  [ state, updateState ] = useState(initialState);
 
     const Select = () => (
             <Fragment>
-                <label htmlFor="">Coin</label>
+                <label htmlFor="">{label}</label>
                 <select name="" id="">
-                    <option value="MXN">Peso Mexicano</option>
+                    <option value="">--Select an option</option>
+                    {options.map(option => (
+                    <option key={option.code} value={option.code}>{option.name}</option>
+                    ))}
                 </select>
             </Fragment>
     );
