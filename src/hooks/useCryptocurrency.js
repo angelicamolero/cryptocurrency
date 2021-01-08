@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, {useState, Fragment} from 'react';
 import styled from '@emotion/styled';
 
 const Label =  styled.label`
@@ -21,26 +21,25 @@ const Select =  styled.select`
     font-size: 1.2rem;
 `;
 
-const useCoin = (label, initialState, options) => {
+const useCryptoCoin = (label, initialState, options) => {
 
     const  [ state, updateState ] = useState(initialState);
 
-    const Selection = () => (
+    const SelectCrypto = () => (
             <Fragment>
                 <Label>{label}</Label>
                 <Select 
                 onChange= {e => updateState(e.target.value)}
-                >
-                    <option value="">--Select an option</option>
-                    {options.map(option => (
-                    <option key={option.code} value={option.code}>{option.name}</option>
-                    ))}
+                value={state}>
+                   <option value="">--Select an option</option>
+                   {options?.map(option => (
+                    <option key={option.CoinInfo.Id} value={option.CoinInfo.Name}>{option.CoinInfo.FullName}</option>
+                ))}
                 </Select>
             </Fragment>
     );
 
-    return [state, Selection, updateState];
+    return [state, SelectCrypto, updateState];
 }
 
-export default useCoin;
-
+export default useCryptoCoin;
