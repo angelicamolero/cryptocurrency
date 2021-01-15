@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import image from './cryptocurrency.png';
 import Form from './components/Form';
+import Stimator from './components/Stimator';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -43,11 +44,23 @@ function App() {
 
   const [ crypto, saveCrypto ] = useState('');
 
+  const [ result, saveResult ] = useState({});
+
   useEffect(() => {
-    // avoiding to run first time
+    
+    const stimateCrypto = async () => {
+      // avoiding to run first time
     if(coin === '') return;
     // checking API to obtain stimation
     const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${crypto}&tsyms=${coin}`;
+
+    const result = await axios.get(url);
+
+    saveResult(result.data.DISPLAY[crypto][coin]);
+    }
+
+    stimateCrypto();
+
   }, [coin, crypto])
   
   return (
@@ -64,6 +77,9 @@ function App() {
           <Form
             saveCoin={saveCoin}
             saveCrypto={saveCrypto}
+          />
+          <Stimator
+            result={result}
           />
         </div>
       </Container>
