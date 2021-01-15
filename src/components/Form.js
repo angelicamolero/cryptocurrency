@@ -23,9 +23,9 @@ const Button = styled.input`
     }
 `;
 
-const Form = () => {
+const Form = ({saveCoin, saveCrypto}) => {
 
-    const [ crypto, saveCrypto ] = useState([]);
+    const [ crypto, saveCryptos ] = useState([]);
 
     const [ error, saveError ] = useState(false);
 
@@ -49,7 +49,7 @@ const Form = () => {
 
             const result = await axios.get(url);
 
-            saveCrypto(result.data.Data);
+            saveCryptos(result.data.Data);
         }
         checkAPI();
     }, []);
@@ -64,6 +64,8 @@ const Form = () => {
         } 
         // send data to principal component
         saveError(false);
+        saveCoin(coin);
+        saveCrypto(cryptocoin)
 
     }
 
