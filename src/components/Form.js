@@ -27,6 +27,8 @@ const Form = () => {
 
     const [ crypto, saveCrypto ] = useState([]);
 
+    const [ error, saveError ] = useState(false);
+
     const Coins = [
         { code: 'USD', name: 'United State Dolar'},
         { code: 'MXN', name: 'Peso Mexicano'},
@@ -52,8 +54,23 @@ const Form = () => {
         checkAPI();
     }, []);
 
+    const stimateCoin = e => {
+        e.preventDefault();
+
+        // validate if the fields are filled
+        if(coin === '' || cryptocoin === '') {
+            saveError(true);
+            return;
+        } 
+        // send data to principal component
+        saveError(false);
+
+    }
+
     return(
-        <form>
+        <form
+        onSubmit={stimateCoin}>
+        { error ? "There's something wrong" : null}
             <SelectCoin/>
             <SelectCrypto/>
             <Button
